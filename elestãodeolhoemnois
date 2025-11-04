@@ -1,0 +1,138 @@
+/**
+ * Componente CarouselInteractive
+ * 
+ * Carrossel avançado com:
+ * - Controles manuais (botões anterior/próximo)
+ * - Indicadores de slide (dots)
+ * - Pausa ao passar o mouse
+ * - Suporte a teclado (setas esquerda/direita)
+ * - Animação suave entre slides
+ */
+
+import { useState, useEffect, useRef } from 'react';
+import './CarouselInteractive.css';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
+
+interface CarouselInteractiveProps {
+  images: string[];
+  title?: string;
+  autoPlayDuration?: number;
+}
+
+export default function CarouselInteractive({
+  images,
+  title,
+  autoPlayDuration = 5000,
+}: CarouselInteractiveProps) {
+  // Estado do carrossel
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [isAutoPlay, setIsAutoPlay] = useState(true);
+  const autoPlayRef = useRef<NodeJS.Timeout | null>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  // Função para ir para o próximo slide
+  const goToNext = () => {
+    setCurrentIndex((prev) => (prev + 1) % images.length);
+  };
+
+  // Função para ir para o slide anterior
+  const goToPrev = () => {
+    setCurrentIndex((prev) => (prev - 1 + images.length) % images.length);
+  };
+
+  // Função para ir para um slide específico
+  const goToSlide = (index: number) => {
+    setCurrentIndex(index);
+  };
+
+  // Auto-play effect - Avança automaticamente a cada X segundos
+  useEffect(() => {
+    if (isAutoPlay) {
+      autoPlayRef.current = setInterval(goToNext, autoPlayDuration);
+    }
+    return () => {
+      if (autoPlayRef.current) {
+        clearInterval(autoPlayRef.current);
+      }
+    };
+  }, [isAutoPlay, autoPlayDuration]);
+
+  // Keyboard navigation - Suporte a setas do teclado
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'ArrowLeft') goToPrev();
+      if (e.key === 'ArrowRight') goToNext();
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, []);
+
+  // Pause on hover - Pausa ao passar o mouse
+  const handleMouseEnter = () => {
+    setIsAutoPlay(false);
+  };
+
+  const handleMouseLeave = () => {
+    setIsAutoPlay(true);
+  };
+
+  return (
+    <div className="carousel-interactive-container">
+      {title && <h2 className="carousel-interactive-title">{title}</h2>}
+
+      <div
+        ref={containerRef}
+        className="carousel-interactive"
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
+      >
+        {/* Slides container */}
+        <div className="carousel-interactive-slides">
+          {images.map((image, index) => (
+            <div
+              key={index}
+              className={`carousel-interactive-slide ${
+                index === currentIndex ? 'active' : ''
+              }`}
+            >
+              <img src={image} alt={`Slide ${index + 1}`} />
+            </div>
+          ))}
+        </div>
+
+        {/* Previous button - Botão anterior */}
+        <button
+          className="carousel-interactive-button carousel-interactive-button-prev"
+          onClick={goToPrev}
+          aria-label="Slide anterior"
+        >
+          <ChevronLeft size={24} />
+        </button>
+
+        {/* Next button - Botão próximo */}
+        <button
+          className="carousel-interactive-button carousel-interactive-button-next"
+          onClick={goToNext}
+          aria-label="Próximo slide"
+        >
+          <ChevronRight size={24} />
+        </button>
+
+        {/* Indicators (dots) - Indicadores de slide */}
+        <div className="carousel-interactive-indicators">
+          {images.map((_, index) => (
+            <button
+              key={index}
+              className={`carousel-interactive-dot ${
+                index === currentIndex ? 'active' : ''
+              }`}
+              onClick={() => goToSlide(index)}
+              aria-label={`Ir para slide ${index + 1}`}
+            />
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
