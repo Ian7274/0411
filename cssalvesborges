@@ -1,0 +1,580 @@
+/**
+ * LOJA DE VENDAS ONLINE - ESTILOS COMPLETOS
+ * 
+ * Estrutura:
+ * 1. Reset e Estilos Globais
+ * 2. Header
+ * 3. Main Container
+ * 4. Carrossel Interativo
+ * 5. Grid de Produtos
+ * 6. Footer
+ * 7. Responsividade (Tablet e Mobile)
+ */
+
+/* ============================================
+   1. RESET E ESTILOS GLOBAIS
+   ============================================ */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+        'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+        sans-serif;
+    background: #fafafa;
+    color: #333;
+}
+
+/* ============================================
+   2. HEADER
+   ============================================ */
+
+.home-header {
+    background: linear-gradient(135deg, #3d2817 0%, #2d1810 100%);
+    color: white;
+    padding: 1rem 0;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.header-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo-section {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.app-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin: 0;
+    letter-spacing: 0.5px;
+}
+
+.header-nav {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+/* ============================================
+   3. MAIN CONTAINER
+   ============================================ */
+
+.home-main {
+    flex: 1;
+    max-width: 1200px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 2rem 1rem;
+}
+
+/* ============================================
+   4. CARROSSEL INTERATIVO
+   ============================================ */
+
+/* Container do carrossel */
+.carousel-interactive-container {
+    width: 100%;
+    padding: 2rem 0;
+    background: linear-gradient(135deg, #f5e6d3 0%, #e8d4c0 100%);
+    border-radius: 12px;
+    overflow: hidden;
+    margin-bottom: 3rem;
+}
+
+/* Título do carrossel */
+.carousel-interactive-title {
+    text-align: center;
+    font-size: 1.875rem;
+    font-weight: 700;
+    color: #3d2817;
+    margin-bottom: 1.5rem;
+    letter-spacing: 0.5px;
+}
+
+/* Carrossel principal */
+.carousel-interactive {
+    width: 100%;
+    height: 400px;
+    position: relative;
+    background: linear-gradient(to right, #2d1810 0%, #4a2c1a 50%, #2d1810 100%);
+    border-radius: 8px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+    overflow: hidden;
+    margin: 0 auto;
+    max-width: 90%;
+}
+
+/* Container dos slides */
+.carousel-interactive-slides {
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+/* Cada slide individual */
+.carousel-interactive-slide {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #f5f5f5;
+}
+
+/* Slide ativo com opacidade total */
+.carousel-interactive-slide.active {
+    opacity: 1;
+}
+
+/* Imagens do slide */
+.carousel-interactive-slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+/* ============================================
+   BOTÕES DE NAVEGAÇÃO DO CARROSSEL
+   ============================================ */
+
+/* Estilo base dos botões */
+.carousel-interactive-button {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(255, 255, 255, 0.8);
+    border: none;
+    color: #3d2817;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    z-index: 10;
+    font-size: 0;
+}
+
+/* Hover dos botões */
+.carousel-interactive-button:hover {
+    background: rgba(255, 255, 255, 1);
+    transform: translateY(-50%) scale(1.1);
+}
+
+/* Click dos botões */
+.carousel-interactive-button:active {
+    transform: translateY(-50%) scale(0.95);
+}
+
+/* SVG dentro dos botões */
+.carousel-interactive-button svg {
+    width: 24px;
+    height: 24px;
+}
+
+/* Botão anterior (esquerda) */
+.carousel-interactive-button-prev {
+    left: 1.5rem;
+}
+
+/* Botão próximo (direita) */
+.carousel-interactive-button-next {
+    right: 1.5rem;
+}
+
+/* ============================================
+   INDICADORES (DOTS) DO CARROSSEL
+   ============================================ */
+
+/* Container dos indicadores */
+.carousel-interactive-indicators {
+    position: absolute;
+    bottom: 1.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 0.75rem;
+    z-index: 10;
+}
+
+/* Cada ponto indicador */
+.carousel-interactive-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    border: 2px solid rgba(255, 255, 255, 0.6);
+    background: transparent;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    padding: 0;
+}
+
+/* Hover nos indicadores */
+.carousel-interactive-dot:hover {
+    background: rgba(255, 255, 255, 0.4);
+}
+
+/* Indicador ativo */
+.carousel-interactive-dot.active {
+    background: rgba(255, 255, 255, 1);
+    border-color: rgba(255, 255, 255, 1);
+}
+
+/* ============================================
+   5. GRID DE PRODUTOS
+   ============================================ */
+
+/* Container do grid */
+.product-grid-container {
+    width: 100%;
+    padding: 2rem 1rem;
+    background: #fafafa;
+}
+
+/* Título do grid */
+.grid-title {
+    text-align: center;
+    font-size: 1.875rem;
+    font-weight: 700;
+    color: #3d2817;
+    margin-bottom: 2rem;
+    letter-spacing: 0.5px;
+}
+
+/* Grid de produtos - 3 colunas */
+.produtos {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Card individual do produto */
+.produto {
+    background: white;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Efeito hover do produto */
+.produto:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+}
+
+/* Wrapper da imagem do produto */
+.produto-image-wrapper {
+    width: 100%;
+    height: 250px;
+    overflow: hidden;
+    background: #f0f0f0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Imagem do produto */
+.produto-image-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+/* Zoom na imagem ao passar o mouse */
+.produto:hover .produto-image-wrapper img {
+    transform: scale(1.08);
+}
+
+/* Informações do produto */
+.produto-info {
+    padding: 1.25rem;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+/* Nome do produto */
+.produto-name {
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: #3d2817;
+    margin: 0 0 0.5rem 0;
+}
+
+/* Descrição do produto */
+.produto-description {
+    font-size: 0.875rem;
+    color: #666;
+    margin: 0 0 1rem 0;
+    flex-grow: 1;
+}
+
+/* Footer do card (preço e botão) */
+.produto-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    margin-top: auto;
+}
+
+/* Preço do produto */
+.produto-price {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #c97a3a;
+}
+
+/* Botão "Adicionar" */
+.produto-button {
+    padding: 0.5rem 1rem;
+    background: linear-gradient(135deg, #c97a3a 0%, #a85d2a 100%);
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-size: 0.875rem;
+}
+
+/* Hover do botão */
+.produto-button:hover {
+    background: linear-gradient(135deg, #a85d2a 0%, #8a4620 100%);
+    transform: scale(1.05);
+}
+
+/* Click do botão */
+.produto-button:active {
+    transform: scale(0.98);
+}
+
+/* ============================================
+   6. FOOTER
+   ============================================ */
+
+.home-footer {
+    background: linear-gradient(135deg, #3d2817 0%, #2d1810 100%);
+    color: white;
+    text-align: center;
+    padding: 2rem 1rem;
+    margin-top: auto;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.home-footer p {
+    margin: 0;
+    font-size: 0.95rem;
+    opacity: 0.9;
+}
+
+/* ============================================
+   7. RESPONSIVIDADE - TABLET (até 768px)
+   ============================================ */
+
+@media (max-width: 768px) {
+    /* Header responsivo */
+    .header-content {
+        flex-direction: column;
+        gap: 1rem;
+        text-align: center;
+    }
+
+    .logo-section {
+        justify-content: center;
+    }
+
+    .app-title {
+        font-size: 1.25rem;
+    }
+
+    /* Carrossel responsivo */
+    .carousel-interactive {
+        height: 300px;
+    }
+
+    .carousel-interactive-title {
+        font-size: 1.5rem;
+        margin-bottom: 1rem;
+    }
+
+    .carousel-interactive-container {
+        padding: 1.5rem 0;
+    }
+
+    /* Botões do carrossel menores */
+    .carousel-interactive-button {
+        width: 40px;
+        height: 40px;
+    }
+
+    .carousel-interactive-button-prev {
+        left: 1rem;
+    }
+
+    .carousel-interactive-button-next {
+        right: 1rem;
+    }
+
+    /* Indicadores menores */
+    .carousel-interactive-indicators {
+        bottom: 1rem;
+        gap: 0.5rem;
+    }
+
+    .carousel-interactive-dot {
+        width: 10px;
+        height: 10px;
+    }
+
+    /* Grid com 2 colunas */
+    .produtos {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.25rem;
+        padding: 1.5rem 1rem;
+    }
+
+    .grid-title {
+        font-size: 1.5rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .product-grid-container {
+        padding: 1.5rem 1rem;
+    }
+
+    /* Imagens menores */
+    .produto-image-wrapper {
+        height: 200px;
+    }
+}
+
+/* ============================================
+   8. RESPONSIVIDADE - MOBILE (até 500px)
+   ============================================ */
+
+@media (max-width: 500px) {
+    /* Header mobile */
+    .app-title {
+        font-size: 1.125rem;
+    }
+
+    /* Carrossel mobile */
+    .carousel-interactive {
+        height: 200px;
+    }
+
+    .carousel-interactive-title {
+        font-size: 1.25rem;
+        margin-bottom: 0.75rem;
+    }
+
+    .carousel-interactive-container {
+        padding: 1rem 0;
+    }
+
+    /* Botões ainda menores */
+    .carousel-interactive-button {
+        width: 36px;
+        height: 36px;
+    }
+
+    .carousel-interactive-button-prev {
+        left: 0.75rem;
+    }
+
+    .carousel-interactive-button-next {
+        right: 0.75rem;
+    }
+
+    /* Indicadores bem pequenos */
+    .carousel-interactive-indicators {
+        bottom: 0.75rem;
+        gap: 0.4rem;
+    }
+
+    .carousel-interactive-dot {
+        width: 8px;
+        height: 8px;
+    }
+
+    /* Grid com 1 coluna */
+    .produtos {
+        grid-template-columns: repeat(1, 1fr);
+        gap: 1rem;
+        padding: 1rem;
+    }
+
+    .grid-title {
+        font-size: 1.25rem;
+        margin-bottom: 1rem;
+    }
+
+    .product-grid-container {
+        padding: 1rem;
+    }
+
+    /* Imagens ainda menores */
+    .produto-image-wrapper {
+        height: 180px;
+    }
+
+    /* Texto menor */
+    .produto-name {
+        font-size: 1rem;
+    }
+
+    .produto-price {
+        font-size: 1.125rem;
+    }
+
+    .produto-button {
+        padding: 0.4rem 0.8rem;
+        font-size: 0.8rem;
+    }
+
+    /* Footer mobile */
+    .home-footer {
+        padding: 1.5rem 0.5rem;
+    }
+}
+
+/* ============================================
+   CONTAINER GERAL
+   ============================================ */
+
+.home-container {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background: #fafafa;
+}
